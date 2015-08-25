@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.mss.msp.acc.details.AccountDetails" table="accounts">
+    <id column="account_id" name="id" type="int"/>
+    <property column="account_name" name="name"/>
+    <property column="account_url" name="url"/>
+    <property column="status" name="status"/>
+    <join optional="true" table="acc_basic_info">
+      <key column="acc_id" update="false"/>
+      <property column="acc_region" name="region"/>
+      <property column="acc_territory" name="territory"/>
+      <!--property column="acc_stock_symbol" name="stockSymbol"/>-->
+      <property column="acc_description" name="description"/>
+      <property column="acc_industry_type" name="industry"/>
+      <property column="acc_tax_id" name="taxId"/>
+      <property column="acc_revenue" name="revenue"/>
+      <property column="acc_it_budget" name="budget"/>
+      <property column="acc_phone" name="phone"/>
+      <property column="acc_fax" name="fax"/>
+      <property column="acc_no_of_employees" name="noemp"/>
+    </join>
+    <join optional="true" table="acc_address">
+      <key column="acc_id" update="false"/>
+      <!--property name="acc_address_id" generated="always" column="acc_add_id" /-->
+      <property column="acc_zip" name="zip"/>
+      <property column="acc_state" name="state"/>
+      <property column="acc_address1" name="address1"/>
+      <property column="acc_address2" name="address2"/>
+      <property column="acc_country" name="country"/>
+      <property column="acc_city"   name="city" />
+    </join>
+    <join optional="true" table="org_rel">
+      <key column="related_org_Id" update="false"/>
+      <!--property name="org_rel_id" generated="always" column="id"    /-->
+      <property column="acc_type" name="accountType"/>
+      <!--<property column="type_of_vendor" name="vendor"/>-->
+    </join>
+  </class>
+</hibernate-mapping>
