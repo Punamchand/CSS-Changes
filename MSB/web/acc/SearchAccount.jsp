@@ -232,7 +232,7 @@
                                         </div>
                                     </div>
                                     <!-- content start -->
-                                    <div class="col-sm-12" style="background-color: lavender;">
+                                    <div class="col-sm-12" style="background-color: lightgoldenrodyellow;">
                                         <s:form action="searchAccountsBy"  method="post" theme="simple" >
                                             <br>
                                             <%--div class="row">
