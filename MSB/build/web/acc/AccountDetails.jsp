@@ -37,6 +37,11 @@ Author     : Greg
         <link rel="stylesheet" type="text/css" href="<s:url value="/includes/css/accountDetails/projects.css"/>">
         <link rel="stylesheet" type="text/css" href="<s:url value="/includes/css/jquery.msg.css"/>">
         <link rel="stylesheet" type="text/css" href="<s:url value="/includes/css/general/addAccountStyles.css"/>">
+        <link rel="stylesheet" type="text/css" href="<s:url value="/includes/css/general/demo.css"/>">
+        <link rel="stylesheet" type="text/css" href="<s:url value="/includes/css/general/set1.css"/>">
+        <link rel="stylesheet" type="text/css" href="<s:url value="/includes/css/general/normalize.css"/>">
+        
+        
 
         <script language="JavaScript" src="<s:url value="/struts/utils.js"/>" type="text/javascript"></script>
 
@@ -182,7 +187,7 @@ Author     : Greg
                                             <div class="">
                                                 <div class="panel panel-info" style="margin-bottom:-8px ">
                                                     <div class="panel-body" id="panel-task-body" >
-                                                        <div class="header-label"  style="float: unset; margin-top:-12px; margin-bottom: 5px;background-color: darkseagreen;text-align: -webkit-center;">
+                                                        <div class="header-label" style="float: unset; margin-top:-12px; margin-bottom: 5px;background-color: darkseagreen;text-align: -webkit-center;">
                                                             <label style="margin-left: 20px;font-size: 20px;color: midnightblue;">Account Name:</label>
                                                             <s:url var="myUrl" action="viewAccount.action">
                                                                 <s:param name="accountSearchID"><s:property value="accountSearchID"/></s:param>
