@@ -384,12 +384,12 @@ function editAccountValidation()
  }
  function accPhoneValidate(){
      if(document.getElementById('phone1').length==10){
-          $("#phone1").css("border", "1px solid red");
+        $(".accPhoneValidate").css("border", "1px solid red");
         $('#phoneError').css("color","red");
         $('#phoneError').html("SELECT AN INDUSTRY");
      }
      else{
-         $("#phone1").css("border","1px solid green");
+         $(".input__field input__field--jiro").css("border","1px solid green");
         $('#phoneError').html("");
      }
  }
@@ -408,12 +408,12 @@ function editAccountValidation()
      var emp=document.getElementById('account_noemp').value;
      re=/^([1-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9])$/;
      if(!re.test(emp)){
-        $("#account_noemp").css("border", "1px solid red");
+        $(".input__field input__field--jiro").css("border", "1px solid red");
         $('#noempError').css("color","red");
         $('#noempError').html("Must be  numeric value");
     }
     else{
-       $("#account_noemp").css("border","1px solid green");
+       $(".input__field input__field--jiro").css("border","1px solid green");
         $('#noempError').html("");
     }
  }
@@ -495,7 +495,7 @@ function taxValidate(evt){
     var iKeyCode = (evt.which) ? evt.which : evt.keyCode
     if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
     {
-        $("#account_taxid").css("border", "1px solid red");
+        $(".input__field input__field--jiro").css("border", "1px solid red");
         $('#taxError').css("color","red");
         $("#taxError").html("Must be valid Tax Id");
  
@@ -505,7 +505,7 @@ function taxValidate(evt){
     {
                     
         $("#taxError").html("");
-        $("#account_taxid").css("border", "1px solid green");
+        $(".input__field input__field--jiro").css("border", "1px solid green");
         return true;
     }
 };
@@ -535,7 +535,7 @@ function faxValidate(evt){
     var iKeyCode = (evt.which) ? evt.which : evt.keyCode
     if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
     {
-         $("#fax").css("border", "1px solid red");
+         $(".input__field input__field--jiro").css("border", "1px solid red");
         $('#faxError').css("color","red");
         $("#faxError").html("Must be valid Fax number");
  
@@ -545,7 +545,7 @@ function faxValidate(evt){
     {
                     
         $("#faxError").html("");
-        $("#fax").css("border", "1px solid green");
+        $(".input__field input__field--jiro").css("border", "1px solid green");
         return true;
     }
 };
@@ -559,13 +559,13 @@ $("#account_territory").on("keypress", function(event) {
     if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || character.test(key))
     {
         $("#territoryError").html("");
-        $("#account_territory").css("border", "1px solid green"); 
+        $(".input__field input__field--jiro").css("border", "1px solid green"); 
         return true;
     }
     else
     {
            
-        $("#account_territory").css("border", "1px solid red");
+        $(".input__field input__field--jiro").css("border", "1px solid red");
         $('#territoryError').css("color","red");
         $("#territoryError").html("Must be valid Territory");
         return false;
@@ -589,13 +589,13 @@ $("#account_region").on("keypress", function(event) {
     if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || character.test(key))
     {
         $("#regionError").html("");
-        $("#account_region").css("border", "1px solid green"); 
+        $(".input__field input__field--jiro").css("border", "1px solid green"); 
         return true;
     }
     else
     {
            
-        $("#account_region").css("border", "1px solid red");
+        $(".input__field input__field--jiro").css("border", "1px solid red");
         $('#regionError').css("color","red");
         $("#regionError").html("Must be valid Region");
         return false;

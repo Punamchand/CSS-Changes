@@ -207,7 +207,7 @@
     <body style="overflow-x: hidden" onload="doOnLoad();">
         <header id="header"><!--header-->
             <div class="header_top"><!--header_top-->
-                <div class="container">
+                <div>
                     <s:include value="/includes/template/header.jsp"/>
                 </div>
             </div>
@@ -290,7 +290,7 @@
                                    
                                                     <div class="col-lg-4">
                                                      
-                                                     <label class="labelStylereq label-input" style="color:#56a5ec;">Name: </label>
+                                                     <label class="labelStylereq" style="color:#56a5ec;">Name: </label>
                                                         <s:textfield cssClass="css-input" label="accountName" id="accountName"
                                                                       type="text" name="account.name" placeholder="Account Name"
                                                                       value="%{account.name}"/>
@@ -341,7 +341,7 @@
                                                                cssClass="selectBoxStyle"/>
                                                 </div>
                                             </div--%>
-                                            <div class="inner-reqdiv-elements">
+                                            <div class="inner-reqdiv-elements" style="margin-top: 15px">
                                                 <div class="row">
                                                     <div class="col-lg-4">
                                                         <label class="labelStylereq" style="color:#56a5ec;">Date: </label>
@@ -403,7 +403,7 @@
                                                                cssClass="selectBoxStyle "/>
                                                 </div>
                                             </div--%>
-                                            <div class="inner-reqdiv-elements">
+                                            <div class="inner-reqdiv-elements" style="margin-top: 15px">
                                                 <div class="row">
                                                     <div class="col-lg-4">
                                                         <label class="labelStylereq" style="color:#56a5ec;">Type: </label>
@@ -449,7 +449,7 @@
                                         </s:form>
                                         <br>
                                         <%--<s:submit cssClass="css_button" value="show"/><br>--%>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="margin-top: 15px">
                                             <s:form>
                                                 <s:hidden id="accountSearchID" value="%{id}" ></s:hidden>
                                                     <div class="emp_Content" id="emp_div" align="center" style="display: none"    >
@@ -539,9 +539,11 @@
             </div>
             <!-- content end -->
         </section><!--/form-->
+        </div>
+     </div>
         <footer id="footer"><!--Footer-->
             <div class="footer-bottom" id="footer_bottom">
-                <div class="container">
+                <div>
                     <s:include value="/includes/template/footer.jsp"/>
                 </div>
             </div>

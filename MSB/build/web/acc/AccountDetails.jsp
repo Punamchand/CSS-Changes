@@ -67,6 +67,118 @@ Author     : Greg
         <script type="text/JavaScript" src="<s:url value="/includes/js/Ajax/vendorAjax.js"/>"></script>
         <script language="JavaScript" src='<s:url value="/includes/js/CountriesAjax.js"/>'></script>
         <script language="JavaScript" src='<s:url value="/includes/js/account/projectOverlays.js"/>'></script>
+        
+           <script>
+                   
+
+  $(document).ready(function(){
+      
+        'use strict';
+
+            // class helper functions from bonzo https://github.com/ded/bonzo
+
+            function classReg( className ) {
+              return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+            }
+
+            // classList support for class management
+            // altho to be fair, the api sucks because it won't accept multiple classes at once
+            var hasClass, addClass, removeClass;
+
+            if ( 'classList' in document.documentElement ) {
+              hasClass = function( elem, c ) {
+                return elem.classList.contains( c );
+              };
+              addClass = function( elem, c ) {
+                elem.classList.add( c );
+              };
+              removeClass = function( elem, c ) {
+                elem.classList.remove( c );
+              };
+            }
+            else {
+              hasClass = function( elem, c ) {
+                return classReg( c ).test( elem.className );
+              };
+              addClass = function( elem, c ) {
+                if ( !hasClass( elem, c ) ) {
+                  elem.className = elem.className + ' ' + c;
+                }
+              };
+              removeClass = function( elem, c ) {
+                elem.className = elem.className.replace( classReg( c ), ' ' );
+              };
+            }
+
+            function toggleClass( elem, c ) {
+              var fn = hasClass( elem, c ) ? removeClass : addClass;
+              fn( elem, c );
+            }
+
+            var classie = {
+              // full names
+              hasClass: hasClass,
+              addClass: addClass,
+              removeClass: removeClass,
+              toggleClass: toggleClass,
+              // short names
+              has: hasClass,
+              add: addClass,
+              remove: removeClass,
+              toggle: toggleClass
+            };
+
+            // transport
+            if ( typeof define === 'function' && define.amd ) {
+              // AMD
+              define( classie );
+            } else {
+              // browser global
+              window.classie = classie;
+            }
+
+            })( window );
+
+        </script>
+         <script>
+                   
+
+                    $(document).ready(function(){
+      
+       // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+				if (!String.prototype.trim) {
+					(function() {
+						// Make sure we trim BOM and NBSP
+						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+						String.prototype.trim = function() {
+							return this.replace(rtrim, '');
+						};
+					})();
+				}
+
+				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+					// in case the input is already filled..
+					if( inputEl.value.trim() !== '' ) {
+						classie.add( inputEl.parentNode, 'input--filled' );
+					}
+
+					// events:
+					inputEl.addEventListener( 'focus', onInputFocus );
+					inputEl.addEventListener( 'blur', onInputBlur );
+				} );
+
+				function onInputFocus( ev ) {
+					classie.add( ev.target.parentNode, 'input--filled' );
+				}
+
+				function onInputBlur( ev ) {
+					if( ev.target.value.trim() === '' ) {
+						classie.remove( ev.target.parentNode, 'input--filled' );
+					}
+				}
+			})();
+
+        </script>
 
         <script type="text/javascript">
             // Pagination Script
@@ -250,7 +362,7 @@ Author     : Greg
                                                         </div>
                                                         <span><j><b><font color="red"></font></b></j></span>
                                                         <div class="tab-content" style="padding : 0px;margin-top: 10px">
-                                                            <div class="tab-pane fade in" id="details" style="background-color: lavender;">
+                                                            <div class="tab-pane fade in" id="details" style="background-color: lightgoldenrodyellow;">
                                                                 <br/>
                                                                 <div id="editMessage" style="display: none" ><font style="color:green ;font: bold; font-size: large">Account  updated successfully!</font></div>
                                                                     <s:form action="ajaxAccountUpdate" id="accountDetailsForm" theme="simple" >
@@ -327,15 +439,74 @@ Author     : Greg
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div style="border: 1px solid black;padding: 8px;">
+                                                                        <div style="border: 1px solid black;padding: 8px;margin-top: 10px;">
                                                                             <div class="row header-label">
                                                                                 <h5><b>Account Address</b></h5>
-                                                                                <div class="col-lg-12">
+                                                                                 <section class="content bgcolor-7">
+                                                                                <span class="input1 input--jiro">
+
+                                                                                    <s:textfield type="text" maxLength="100"
+                                                                                                     name="accountDetails.address1"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     id="account_address1"
+                                                                                                     value="%{accountDetails.address1}"/>
+                                                                                    <label class="input__label input__label--jiro" for="accountDetails.address1">
+                                                                                            <span class="input__label-content input__label-content--jiro">Address 1  </span>
+                                                                                    </label>
+                                                                                </span>
+                                                                                 <span class="input1 input--jiro">
+                                                                                     <s:textfield type="text" maxLength="100"
+                                                                                                     name="accountDetails.address2"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     id="account_address2"
+                                                                                                     value="%{accountDetails.address2}"/>
+                                                                                    <label class="input__label input__label--jiro" for="accountDetails.address2">
+                                                                                            <span class="input__label-content input__label-content--jiro">Address 2  </span>
+                                                                                    </label>
+                                                                                 </span>
+                                                                                    <span class="input1 input--jiro">
+                                                                                     <s:textfield    name="accountDetails.city"
+                                                                                                     type="text"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     required="true"
+                                                                                                     value="%{accountDetails.city}" 
+                                                                                                     onkeyup="accCityValidate();"
+                                                                                                     />
+                                                                                    <label class="input__label input__label--jiro" for="accountDetails.city">
+                                                                                            <span class="input__label-content input__label-content--jiro">City  </span>
+                                                                                    </label>
+                                                                                 </span>
+<!--                                                                                 <span class="input1 input--jiro">
+                                                                                    <s:textfield id="account_city" maxLength="20"
+                                                                                                     name="accountDetails.city"
+                                                                                                     type="text"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     required="true"
+                                                                                                     value="%{accountDetails.city}" 
+                                                                                                     onkeyup="accCityValidate();"
+                                                                                                     />
+                                                                                    <label class="input__label input__label--jiro" for="accountDetails.city">
+                                                                                            <span class="input__label-content input__label-content--jiro">City</span>
+                                                                                    </label>
+                                                                                </span>-->
+                                                                                    <span class="input1 input--jiro">
+                                                                                    <s:textfield id="account_zip" maxLength="11"
+                                                                                                     name="accountDetails.zip"
+                                                                                                     type="text"
+                                                                                                      cssClass="input__field input__field--jiro"
+                                                                                                     value="%{accountDetails.zip}"/>
+                                                                                    <label class="input__label input__label--jiro" for="accountDetails.zip">
+                                                                                            <span class="input__label-content input__label-content--jiro">Zip</span>
+                                                                                    </label>
+                                                                                </span>
+                                                                            </section>
+                                                                                    
+<!--                                                                                <div class="col-lg-12">
                                                                                     <div class="col-lg-3">
                                                                                         <label style="color:#56a5ec;" class="labelStyle2">Address 1  </label>
                                                                                         <s:textfield type="text" maxLength="100"
                                                                                                      name="accountDetails.address1"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      id="account_address1"
                                                                                                      value="%{accountDetails.address1}"/>
                                                                                         <span id="address1Error" class="accDetailsError"></span>
@@ -344,7 +515,7 @@ Author     : Greg
                                                                                         <label style="color:#56a5ec;" class="labelStyle2">Address 2  </label>
                                                                                         <s:textfield type="text" maxLength="100"
                                                                                                      name="accountDetails.address2"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      id="account_address2"
                                                                                                      value="%{accountDetails.address2}"/>
                                                                                     </div>
@@ -353,7 +524,7 @@ Author     : Greg
                                                                                         <s:textfield id="account_city" maxLength="20"
                                                                                                      name="accountDetails.city"
                                                                                                      type="text"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      required="true"
                                                                                                      value="%{accountDetails.city}" 
                                                                                                      onkeyup="accCityValidate();"
@@ -366,21 +537,21 @@ Author     : Greg
                                                                                         <s:textfield id="account_zip" maxLength="11"
                                                                                                      name="accountDetails.zip"
                                                                                                      type="text"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      value="%{accountDetails.zip}"/>
 
                                                                                         <span id="zipError" class="accDetailsError"></span>
                                                                                     </div>
-                                                                                </div>
+                                                                                </div>-->
                                                                             </div>
                                                                             <div class="row">
                                                                             <div class="col-lg-12 header-label">
-                                                                                <div class="col-lg-3">
+                                                                                <div class="col-lg-3" style="margin-top: 15px;">
                                                                                     <label style="color:#56a5ec;" class="labelStyle2"><%--<span style="color:red;">*</span>--%>Country  </label>
                                                                                     <br><s:select   id="account_country"
                                                                                                 value="accountDetails.country"
                                                                                                 name="accountDetails.country"
-                                                                                                cssClass="SelectBoxStyles form-control"
+                                                                                                cssClass="SelectBoxStyles css-input"
                                                                                                 headerKey="-1"
                                                                                                 headerValue="Select Country"
                                                                                                 theme="simple"
@@ -389,12 +560,12 @@ Author     : Greg
                                                                                                 />
                                                                                     <span id="countryError" class="countryError"></span>
                                                                                 </div>
-                                                                                <div class="col-lg-3">
+                                                                                <div class="col-lg-3" style="margin-top: 15px;">
                                                                                     <label style="color:#56a5ec;" class="labelStyle2"><%--<span style="color:red;">*</span>--%>State  </label>
                                                                                     <br><s:select   id="account_state"
                                                                                                 value="%{accountDetails.state}"
                                                                                                 name="accountDetails.state"
-                                                                                                cssClass="SelectBoxStyles form-control"
+                                                                                                cssClass="SelectBoxStyles css-input"
                                                                                                 headerKey="-1"
                                                                                                 headerValue="Select State"
                                                                                                 theme="simple"
@@ -402,10 +573,39 @@ Author     : Greg
                                                                                                 onchange="accStateValidate();"/>
                                                                                     <span id="stateError" class="accDetailsError"></span>
                                                                                 </div>
-                                                                                <div class="col-lg-3">
+                                                                                  <section class="content bgcolor-7">
+                                                                                    <span class="input1 input--jiro">
+                                                                                        <s:textfield id="phone1" 
+                                                                                                         name="accountDetails.phone"
+                                                                                                         type="text"
+                                                                                                         cssClass="input__field input__field--jiro"
+                                                                                                         value="%{accountDetails.phone}"
+                                                                                                      onkeyup="accPhoneValidate();"/>
+                                                                                        <span id="phoneError" class="accDetailsError"></span>
+                                                                                        <label class="input__label input__label--jiro" for="accountDetails.phone">
+                                                                                                <span class="input__label-content input__label-content--jiro">Phone</span>
+                                                                                        </label>
+                                                                                    </span>
+                                                                                        <span class="input1 input--jiro">
+                                                                                         <s:textfield  id="fax" maxLength="15"
+                                                                                                          name="accountDetails.fax"
+                                                                                                          type="text"
+                                                                                                          cssClass="input__field input__field--jiro"
+                                                                                                          value="%{accountDetails.fax}"
+                                                                                                          onkeypress="return faxValidate(event)"
+                                                                                                          />
+
+                                                                                            
+                                                                                            <label class="input__label input__label--jiro" for="accountDetails.fax">
+                                                                                                    <span class="input__label-content input__label-content--jiro">Fax
+                                                                                                    </span>
+                                                                                            </label>
+                                                                                        </span>                                                                               
+                                                                                    </section>
+<!--                                                                                <div class="col-lg-3">
                                                                                     <label style="color:#56a5ec;" class="labelStyle2"><%--<span style="color:red;">*</span>--%>Phone  </label>
                                                                                     <s:textfield  id="phone1" 
-                                                                                                  cssClass="form-control"
+                                                                                                  cssClass="css-input"
                                                                                                   name="accountDetails.phone"
                                                                                                   type="text"
                                                                                                   value="%{accountDetails.phone}"
@@ -415,7 +615,7 @@ Author     : Greg
                                                                                 <div class="col-lg-3">
                                                                                     <label style="color:#56a5ec;" class="labelStyle2">Fax  </label>
                                                                                     <s:textfield  id="fax" maxLength="15"
-                                                                                                  cssClass="form-control"
+                                                                                                  cssClass="css-input"
                                                                                                   name="accountDetails.fax"
                                                                                                   type="text"
                                                                                                   value="%{accountDetails.fax}"
@@ -423,7 +623,7 @@ Author     : Greg
                                                                                                   />
 
                                                                                     <span id="faxError" class="accDetailsError"></span>
-                                                                                </div>
+                                                                                </div>-->
                                                                             </div>
                                                                         </div>
                                                                         </div>
@@ -432,11 +632,11 @@ Author     : Greg
                                                                             <div class="row header-label">
                                                                                 <h5><b>Basic Information</b></h5>
                                                                                 <div class="col-lg-12">
-                                                                                    <div class="col-lg-3">
+                                                                                    <div class="col-lg-3" style="margin-top: 15px;">
                                                                                         <label style="color:#56a5ec;" class="labelStyle2"><%--<span style="color:red;">*</span>--%>Industry </label>
                                                                                         <br><s:select   id="account_industry"
                                                                                                     name="accountDetails.industry"
-                                                                                                    cssClass="SelectBoxStyles form-control"
+                                                                                                    cssClass="SelectBoxStyles css-input"
                                                                                                     headerKey="-1"
                                                                                                     headerValue="Select an industry"
                                                                                                     type="text"
@@ -445,12 +645,52 @@ Author     : Greg
                                                                                                     onchange="accIndustryValidate()"/>
                                                                                         <span id="industryError" class="accDetailsError"></span>
                                                                                     </div>
-                                                                                    <div class="col-lg-3">
+                                                                                        <section class="content bgcolor-7">
+                                                                                    <span class="input1 input--jiro">
+                                                                                        <s:textfield id="account_region" maxLength="20"
+                                                                                                     name="accountDetails.region"
+                                                                                                     type="text"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     value="%{accountDetails.region}"
+                                                                                                     onkeyup="regionValidate();"/>
+                                                                                        <span id="regionError" class="accDetailsError"></span>                                                                                        
+                                                                                        <label class="input__label input__label--jiro" for="accountDetails.region">
+                                                                                                <span class="input__label-content input__label-content--jiro">Region</span>
+                                                                                        </label>
+                                                                                    </span>
+                                                                                        <span class="input1 input--jiro">
+                                                                                         <s:textfield id="account_territory" maxLength="20"
+                                                                                                     name="accountDetails.territory"
+                                                                                                     type="text"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     value="%{accountDetails.territory}"
+                                                                                                     onkeyup="territoryValidate();"/>
+                                                                                          <span id="territoryError" class="accDetailsError"></span>
+                                                                                            <label class="input__label input__label--jiro" for="accountDetails.territory">
+                                                                                                    <span class="input__label-content input__label-content--jiro">Territory
+                                                                                                    </span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                         <span class="input1 input--jiro">
+                                                                                         <s:textfield id="account_noemp" maxLength="11"
+                                                                                                     name="accountDetails.noemp"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     type="text"
+                                                                                                     value="%{accountDetails.noemp}"
+                                                                                                     onkeyup="accNoOfEmpValidate();"/>                                
+                                                                                         <span id="noempError" class="accDetailsError"></span>
+                                                                                            <label class="input__label input__label--jiro" for="accountDetails.noemp">
+                                                                                                    <span class="input__label-content input__label-content--jiro">No. of Employees
+                                                                                                    </span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                    </section>
+<!--                                                                                    <div class="col-lg-3">
                                                                                         <label style="color:#56a5ec;" class="labelStyle2">Region  </label>
                                                                                         <s:textfield id="account_region" maxLength="20"
                                                                                                      name="accountDetails.region"
                                                                                                      type="text"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      value="%{accountDetails.region}"
                                                                                                      onkeyup="regionValidate();"/>
                                                                                         <span id="regionError" class="accDetailsError"></span>
@@ -460,7 +700,7 @@ Author     : Greg
                                                                                         <s:textfield id="account_territory" maxLength="20"
                                                                                                      name="accountDetails.territory"
                                                                                                      type="text"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      value="%{accountDetails.territory}"
                                                                                                      onkeyup="territoryValidate();"/>
                                                                                         <span id="territoryError" class="accDetailsError"></span>
@@ -469,16 +709,57 @@ Author     : Greg
                                                                                         <label style="color:#56a5ec;" class="labelStyle2">No. of Employees  </label>
                                                                                         <s:textfield id="account_noemp" maxLength="11"
                                                                                                      name="accountDetails.noemp"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      type="text"
                                                                                                      value="%{accountDetails.noemp}"
                                                                                                      onkeyup="accNoOfEmpValidate();"/>
                                                                                         <span id="noempError" class="accDetailsError"></span>
-                                                                                    </div>
+                                                                                    </div>-->
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="row">
+                                                                            <div class="row" style="margin-top:15px;">
                                                                                 <div class="col-lg-12 header-label">
+                                                                                    <section class="content bgcolor-7">
+                                                                                    <span class="input1 input--jiro">
+                                                                                        <span id="taxError" class="accDetailsError"></span>                                                                                        
+                                                                                        <s:textfield id="account_taxid" maxLength="20"
+                                                                                                     name="accountDetails.taxId"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     type="text"
+                                                                                                     value="%{accountDetails.taxId}"
+                                                                                                     onkeypress="return"/>
+                                                                                        
+                                                                                        <label class="input__label input__label--jiro" for="accountDetails.taxId">
+                                                                                                <span class="input__label-content input__label-content--jiro">Tax ID</span>
+                                                                                        </label>
+                                                                                    </span>
+                                                                                        <span class="input1 input--jiro">
+                                                                                         <s:textfield id="stock_symbol"
+                                                                                                     name="accountDetails.stockSymbol"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     type="text"
+                                                                                                     value="%{accountDetails.stockSymbol}"
+                                                                                                     readonly="true"/>
+                                                                                        <span id="stockError" class="accDetailsError"></span>
+                                                                                            <label class="input__label input__label--jiro" for="accountDetails.stockSymbol">
+                                                                                                    <span class="input__label-content input__label-content--jiro">Stock Symbol
+                                                                                                    </span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                         <span class="input1 input--jiro">
+                                                                                         <s:textfield id="account_revenue" maxLength="11"
+                                                                                                     cssClass="input__field input__field--jiro"
+                                                                                                     name="accountDetails.revenue"
+                                                                                                     type="text"
+                                                                                                     value="%{accountDetails.revenue}"
+                                                                                                     onkeypress="return"/>
+                                                                                        <span id="revenueError" class="accDetailsError"></span>
+                                                                                            <label class="input__label input__label--jiro" for="accountDetails.revenue">
+                                                                                                    <span class="input__label-content input__label-content--jiro">Revenue
+                                                                                                    </span>
+                                                                                            </label>
+                                                                                        </span>
+                                                                                    </section>
                                                                                     <%-- <div class="col-lg-3">
                                                                                          <label style="color:#56a5ec;" class="labelStyle2">Budget  </label>
                                                                                          <s:textfield id="account_budget"
@@ -488,11 +769,11 @@ Author     : Greg
                                                                                                       value="%{accountDetails.budget}"/>
                                                                                          <span id="budgetError" class="accDetailsError"></span>
                                                                                      </div> --%>
-                                                                                    <div class="col-lg-3">
+<!--                                                                                    <div class="col-lg-3">
                                                                                         <label style="color:#56a5ec;" class="labelStyle2">Tax ID  </label>
                                                                                         <s:textfield id="account_taxid" maxLength="20"
                                                                                                      name="accountDetails.taxId"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      type="text"
                                                                                                      value="%{accountDetails.taxId}"
                                                                                                      onkeypress="return taxValidate(event)"/>
@@ -503,7 +784,7 @@ Author     : Greg
                                                                                         <%--------------------CURRENCY TYPE--------------------%>
                                                                                         <s:textfield id="stock_symbol"
                                                                                                      name="accountDetails.stockSymbol"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      type="text"
                                                                                                      value="%{accountDetails.stockSymbol}"
                                                                                                      readonly="true"/>
@@ -512,17 +793,17 @@ Author     : Greg
                                                                                     <div class="col-lg-3">
                                                                                         <label style="color:#56a5ec;" class="labelStyle2">Revenue  </label>
                                                                                         <s:textfield id="account_revenue" maxLength="11"
-                                                                                                     cssClass="form-control"
+                                                                                                     cssClass="css-input"
                                                                                                      name="accountDetails.revenue"
                                                                                                      type="text"
                                                                                                      value="%{accountDetails.revenue}"
                                                                                                      onkeypress="return revenueValidate(event)"/>
                                                                                         <span id="revenueError" class="accDetailsError"></span>
-                                                                                    </div>
+                                                                                    </div>-->
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
-                                                                            <div class="col-lg-12">
+                                                                            <div class="col-lg-12" style="margin-top:15px;">
                                                                                 <div class="col-lg-12 header-label">
                                                                                     <label style="color:#56a5ec;" class="labelStyle2">Description  </label>
                                                                                     <s:textarea id="account_description"

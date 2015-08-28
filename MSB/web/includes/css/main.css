@@ -52,16 +52,16 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebf0f6', endColorstr='#d0e6f4',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-#header_top {
+/*#header_top {
     line-height:0.428571429;
     padding-bottom: 5px;
     height:53px;
     background-color:#3498DB;
-}
+}*/
 
 #footer_bottom {
-    height:50px;
-    background-color:#3498DB; /* Old browsers */
+   
+    background-color:#3498db; 
 
 
 }
@@ -131,6 +131,8 @@ a#scrollUp i{
 
 .header_top {
     background: none repeat scroll 0 0 #3498db;
+    width: 100%;
+    height: 50px;
 }
 
 .contactinfo ul li:first-child{
@@ -547,7 +549,8 @@ ul.sub-menu {
 
 .footer-widget .container {
     border-top: 1px solid #FFFFFF;
-    padding-top: 15px;
+    padding-top: 25px;
+    
 }
 
 .single-widget h2 {
@@ -623,6 +626,7 @@ ul.sub-menu {
 .footer-bottom {
     background: #D6D6D0;
     padding-top: 10px;
+    height: 50px;
 }
 
 .footer-bottom p {
@@ -1569,7 +1573,7 @@ h2.title {
 .login-form p{
     color: #696763;
     font-family: 'Merriweather', serif;
-    font-size: 10px;
+    font-size: 20px;
     font-weight: 300; 
     text-align: right;
 }
@@ -3287,7 +3291,7 @@ div#categorizationBox
 * {margin: 0; padding: 0;}
 
 body {
-	background: #0083C9 !important;
+	background: slateblue !important;
 	font-family: Nunito, arial, verdana;
 }
 #accordian {
